@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -41,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDto> getCommentsByPostId(long postId) {
          List<Comment> comments = commentRepo.findByPostId(postId);
-         return comments.stream().map(this::mapToDTO).collect(Collectors.toList());
+         return comments.stream().map(this::mapToDTO).toList();
     }
 
     @Override
@@ -88,24 +87,12 @@ public class CommentServiceImpl implements CommentService {
 
     //    MapToDto  : -> Databased language to client Language
     private CommentDto mapToDTO(Comment comment) {
-        CommentDto commentDto = mapper.map(comment, CommentDto.class);
-//        CommentDto commentDto = new CommentDto();
-//        commentDto.setId(comment.getId());
-//        commentDto.setEmail(comment.getEmail());
-//        commentDto.setName(comment.getName());
-//        commentDto.setBody(comment.getBody());
-        return commentDto;
+        return mapper.map(comment, CommentDto.class);
     }
 
 //    MapToEntity : -> Client language to database structure
     private Comment mapToEntity(CommentDto commentDto) {
-        Comment comment = mapper.map(commentDto, Comment.class);
-//        Comment comment = new Comment();
-//        comment.setId(commentDto.getId());
-//        comment.setEmail(commentDto.getEmail());
-//        comment.setName(commentDto.getName());
-//        comment.setBody(commentDto.getBody());
-        return comment;
+        return mapper.map(commentDto, Comment.class);
     }
 
 
