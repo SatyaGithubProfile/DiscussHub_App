@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId)); // to get the comment
 
         if (!comment.getPost().getId().equals(post.getId())) { // if the comment does not belong to the post
-            throw new ResourceNotFoundException("Comment", "id", commentId);
+            throw new BlogApiException(HttpStatus.BAD_REQUEST, "Comment does not belong to this post");
         }
 
         return mapToDTO(comment);
@@ -59,7 +59,6 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto updateComment(Long postId, long commentId, CommentDto commentRequest) {
         Post post = postRepo.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
         Comment comment = commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
-
         if (!comment.getPost().getId().equals(post.getId())) {
               throw new BlogApiException(HttpStatus.BAD_REQUEST, "Comment does not belong to post");
         }
