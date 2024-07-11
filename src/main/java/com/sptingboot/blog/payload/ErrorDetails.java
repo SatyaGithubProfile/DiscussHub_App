@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.Date;
 
+// This class is to maintain the structure Error for the API
 @Getter
 public class ErrorDetails {
     private Date timestamp;
