@@ -6,7 +6,6 @@ import jakarta.persistence.*;
     import java.util.HashSet;
 import java.util.Set;
 
-@Data   //lambok annotation helps to not to create getters and setters
 @Getter
 @Setter
 @AllArgsConstructor  //lambok annotation to crete constructor
