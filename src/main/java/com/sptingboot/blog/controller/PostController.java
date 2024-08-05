@@ -1,8 +1,8 @@
 package com.sptingboot.blog.controller;
 
-import com.sptingboot.blog.entity.Post;
 import com.sptingboot.blog.payload.PostDto;
 import com.sptingboot.blog.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
         return new ResponseEntity<>(postServ.createPost(postDto), HttpStatus.CREATED);
     }
 
@@ -42,7 +42,7 @@ public class PostController {
     "content" : "New first Contenct"
     }
      */
-    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable(name="id") long id){
+    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable(name="id") long id){
         PostDto postResponse = postServ.updatePost(postDto, id);
         return new ResponseEntity<PostDto>(postResponse, HttpStatus.OK);
     }

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
     import java.util.HashSet;
 import java.util.Set;
 
-//@Data   //lambok annotation helps to not to create getters and setters
+@Data   //lambok annotation helps to not to create getters and setters
 @Getter
 @Setter
 @AllArgsConstructor  //lambok annotation to crete constructor
@@ -21,7 +21,7 @@ public class Post {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
     @Column(name = "title", nullable = false)
-    private String titile;
+    private String title;
     @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "content", nullable = false)
@@ -29,5 +29,4 @@ public class Post {
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
-
 }
