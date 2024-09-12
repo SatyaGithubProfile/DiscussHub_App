@@ -29,7 +29,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BlogApiException.class)
     //method to handle blog api  exception
     public ResponseEntity<ErrorDetails> handleBlogApiException(BlogApiException exception, WebRequest webRequest) {
-        return new ResponseEntity<>((new ErrorDetails(new Date(), exception.getMessage(),  webRequest.getDescription(false))), HttpStatus.BAD_REQUEST);
+        HttpStatus status = (exception.getStatus() != null) ? exception.getStatus() : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>((new ErrorDetails(new Date(), exception.getMessage(),  webRequest.getDescription(false))), status);
     }
 
 
