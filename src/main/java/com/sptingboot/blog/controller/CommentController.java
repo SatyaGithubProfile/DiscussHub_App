@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CommentController {
         this.commenerServ = commenerServ;
     }
     @PostMapping("/posts/{postId}/comments")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CommentDto> createComment(@PathVariable(value="postId") long postId, @Valid @RequestBody CommentDto commentDto) {
         return new ResponseEntity<>(commenerServ.createComment(postId, commentDto), HttpStatus.CREATED);
     }
@@ -37,6 +39,7 @@ public class CommentController {
     }
 
     @PutMapping("/posts/{postId}/comments/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CommentDto> updateComment(@PathVariable(value="postId") Long postId,
                                                      @PathVariable(value="id") Long commentId,
                                                      @Valid @RequestBody CommentDto commentRequest) {
@@ -45,6 +48,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/posts/{postId}/comments/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteComment(@PathVariable(value="postId") Long postId,
                                 @PathVariable(value="id") Long commentId) {
        String s = commenerServ.deleteComment(postId, commentId);
